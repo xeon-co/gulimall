@@ -95,13 +95,14 @@
             <version>${commons.lang.version}</version>
         </dependency>
 
-        <!--        服务注册/发现-->
+        <!--        服务注册/发现 服务器下载 https://github.com/alibaba/nacos/releases -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
     </dependencies>
 
+    <!-- https://github.com/alibaba/spring-cloud-alibaba -->
     <dependencyManagement>
         <dependencies>
             <dependency>
