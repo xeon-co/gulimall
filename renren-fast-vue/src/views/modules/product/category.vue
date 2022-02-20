@@ -13,7 +13,7 @@
         data: [],
         defaultProps: {
           children: 'children',
-          label: 'label'
+          label: 'name'
         }
       };
     },
@@ -26,8 +26,9 @@
             url: this.$http.adornUrl("/product/category/list/tree"),
             method: "get"
             }
-        ).then((data)=>{
-            console.log("数据:"+data)
+        ).then(({data})=>{
+            console.log("数据:", data.data)
+            this.data = data.data;
             }
         );
       }
