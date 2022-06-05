@@ -7,7 +7,7 @@
   // api接口请求地址
   //  window.SITE_CONFIG['baseUrl'] = 'http://192.168.197.12:9088/renren-fast';
   // 网关代理了
-  window.SITE_CONFIG['baseUrl'] = 'http://192.168.197.12:7000/api';
+  window.SITE_CONFIG['baseUrl'] = 'http://192.168.197.77:7000/api';
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名
