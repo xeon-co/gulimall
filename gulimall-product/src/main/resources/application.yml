@@ -19,7 +19,5 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑不删除值
 server:
   port: 11000
-logging:
-  level:
-    com.atguigu.gulimall:debug
+
 
