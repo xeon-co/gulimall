@@ -95,11 +95,11 @@
             //   `this.maxLevel：${this.maxLevel}；draggingNode.data.catLevel：${draggingNode.data.catLevel}；dropNode.level：${dropNode.level}`
             // );
             var allow = deep + dropNode.level <= 3;
-            console.log("allowDrop ：", allow + " deep:" + deep + " dropNode.level:" + dropNode.level);
+            console.log("allowDrop ：", allow + " deep:" + deep + " dropNode.level:" + dropNode.level + " draggable:"+this.draggable);
             return allow;
           } else {
             var allow = deep + dropNode.parent.level <= 3;
-            console.log("allowDrop1 ：", allow + " deep:" + deep + " dropNode.parent.level:" + dropNode.parent.level);
+            console.log("allowDrop1 ：", allow + " deep:" + deep + " dropNode.parent.level:" + dropNode.parent.level+ " draggable:"+this.draggable);
             return allow;
           }
       
