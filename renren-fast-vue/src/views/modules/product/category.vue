@@ -125,6 +125,34 @@
           // this.pCid = 0;
         });
       },
+	  
+	  batchDelete() {
+		  let catIds = [];
+		  let checkedNodes = this.$refs.menuTree.getCheckedNodes();
+		  console.log("被选中的元素", checkedNodes);
+		  for (let i = 0; i < checkedNodes.length; i++) {
+			catIds.push(checkedNodes[i].catId);
+		  }
+		  this.$confirm(`是否批量删除【${catIds}】菜单?`, "提示", {
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			type: "warning"
+		  })
+			.then(() => {
+			  this.$http({
+				url: this.$http.adornUrl("/product/category/delete"),
+				method: "post",
+				data: this.$http.adornData(catIds, false)
+			  }).then(({ data }) => {
+				this.$message({
+				  message: "菜单批量删除成功",
+				  type: "success"
+				});
+				this.getMenus();
+			  });
+			})
+			.catch(() => {});
+	  },
       handleDrop(draggingNode, dropNode, dropType, ev) {
         console.log("handleDrop: ", draggingNode, dropNode, dropType);
         //1、当前节点最新的父节点id
