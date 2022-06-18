@@ -260,7 +260,7 @@
                   type: 'success',
                   message: '保存成功!'
                 });
-                this.getMenu();
+                this.getMenus();
                 this.expandedKey=[this.category.parentCid]
             }).catch(() => {
               this.dialogFormVisible = false
@@ -291,7 +291,7 @@
                   type: 'success',
                   message: '更新成功!'
                 });
-                this.getMenu();
+                this.getMenus();
                 this.expandedKey=[this.itemData.catId]
             }).catch(() => {
               this.dialogFormVisible = false
@@ -333,7 +333,7 @@
         
         console.log("remove 数据1")
       },
-      getMenu(){
+      getMenus(){
         this.$http({
             url: this.$http.adornUrl("/product/category/list/tree"),
             method: "get"
@@ -346,7 +346,7 @@
       }
     },
     created() {
-        this.getMenu();
+        this.getMenus();
     }
   };
 
