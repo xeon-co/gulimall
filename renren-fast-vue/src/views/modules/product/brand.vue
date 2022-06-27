@@ -127,11 +127,14 @@
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
+		  
             this.dataList = data.page.list
             this.totalPage = data.page.totalCount
+			console.log("/product/brand/list data：", data)
           } else {
             this.dataList = []
             this.totalPage = 0
+			console.log("/product/brand/list fail data：", data)
           }
           this.dataListLoading = false
         })
