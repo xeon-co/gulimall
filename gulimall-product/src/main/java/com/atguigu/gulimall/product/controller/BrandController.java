@@ -46,6 +46,17 @@ public class BrandController {
     /**
      * 信息
      */
+    @RequestMapping("/update/status")
+//    @RequiresPermissions("product:brand:info")
+    public R updateStatus(@RequestBody BrandEntity brand){
+       brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 信息
+     */
     @RequestMapping("/info/{brandId}")
 //    @RequiresPermissions("product:brand:info")
     public R info(@PathVariable("brandId") Long brandId){

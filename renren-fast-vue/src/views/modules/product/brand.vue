@@ -50,7 +50,17 @@
         prop="showStatus"
         header-align="center"
         align="center"
-        label="显示状态[0-不显示；1-显示]">
+        label="显示状态">
+        <template slot-scope="scope">
+              <el-switch
+                v-model="scope.row.showStatus"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                :active-value="1"
+                :inactive-value="0"
+                @change="updateBrandStatus(scope.row)"
+              ></el-switch>
+        </template>
       </el-table-column>
       <el-table-column
         prop="firstLetter"
@@ -127,7 +137,7 @@
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
-		  
+
             this.dataList = data.page.list
             this.totalPage = data.page.totalCount
 			console.log("/product/brand/list data：", data)
@@ -161,6 +171,22 @@
           this.$refs.addOrUpdate.init(id)
         })
       },
+
+      updateBrandStatus(data) {
+            console.log("最新信息", data);
+            let { brandId, showStatus } = data;
+            //发送请求修改状态
+            this.$http({
+              url: this.$http.adornUrl("/product/brand/update/status"),
+              method: "post",
+              data: this.$http.adornData({ brandId, showStatus }, false)
+            }).then(({ data }) => {
+              this.$message({
+                type: "success",
+                message: "状态更新成功"
+              });
+            });
+       },
       // 删除
       deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
