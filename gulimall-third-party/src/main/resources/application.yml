@@ -3,15 +3,19 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.197.77:8848
-    alicloud:
-      access-key: LTAI4FwvfjSycd1APnuG9bjj
-      secret-key: O6xaxyiWfSIitcOkSuK27ju4hXT5Hl
-      oss:
-        endpoint: oss-cn-beijing.aliyuncs.com
-        bucket: gulimall-hello
-
   application:
     name: gulimall-third-party
 
+qiniu:
+  kodo:
+    # 配置accessKey accessKey和secretKey在密钥管理中查询，空间名称如下图，域名在cdn—>域名管理中查询
+    accessKey: S6XolJbPleoVqTpV57O8l2ewjpwumAKX8pW-X0c9
+    # 配置secretKey
+    secretKey: Vd61dchHZa9maEklKGXIDPxCXATo1dBmRcDqvb13
+    # 配置空间名称
+    bucket: gulimall-jacklam
+    # 配置域名 七牛融合 CDN 测试域名（以 clouddn.com/qiniucdn.com/qnssl.com/qbox.me 结尾），
+    # 每个域名每日限回源总流量 10GB，每个测试域名自创建起30个自然日后系统会自动回收，仅供测试使用并且不支持 Https 访问
+    domain: reao8hm1r.hn-bkt.clouddn.com
 server:
   port: 30000

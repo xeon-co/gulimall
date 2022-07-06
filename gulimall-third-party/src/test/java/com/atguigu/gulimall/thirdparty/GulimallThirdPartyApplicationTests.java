@@ -1,7 +1,6 @@
 package com.atguigu.gulimall.thirdparty;
 
-import com.aliyun.oss.OSSClient;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,8 +17,6 @@ class GulimallThirdPartyApplicationTests {
 
     }
 
-    @Autowired
-    OSSClient ossClient;
 
     @Test
     public void testUpload() throws FileNotFoundException {
@@ -33,12 +30,12 @@ class GulimallThirdPartyApplicationTests {
 //        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
         // 上传文件流。
-        InputStream inputStream = new FileInputStream("C:\\Users\\lfy\\Pictures\\Camera Roll\\59f2db04139a2.jpg");
-
-        ossClient.putObject("gulimall-hello", "hahaha.jpg", inputStream);
-
-        // 关闭OSSClient。
-        ossClient.shutdown();
+//        InputStream inputStream = new FileInputStream("C:\\Users\\lfy\\Pictures\\Camera Roll\\59f2db04139a2.jpg");
+//
+//        ossClient.putObject("gulimall-hello", "hahaha.jpg", inputStream);
+//
+//        // 关闭OSSClient。
+//        ossClient.shutdown();
 
         System.out.println("上传完成...");
     }
