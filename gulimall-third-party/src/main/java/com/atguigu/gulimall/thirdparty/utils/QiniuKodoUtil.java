@@ -72,7 +72,7 @@ public class QiniuKodoUtil {
     public String upload(MultipartFile localFilePath) {
         String ret = "";
         UploadManager uploadManager = new UploadManager(cfg);
-        String key = localFilePath.getName();
+        String key = localFilePath.getOriginalFilename();
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket);
         try {
