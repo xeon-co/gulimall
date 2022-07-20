@@ -14,12 +14,11 @@
                 <el-button @click="getDataList()">查询</el-button>
                 <el-button type="success" @click="getAllDataList()">查询全部</el-button>
                 <el-button
-                  v-if="isAuth('product:attrgroup:save')"
                   type="primary"
                   @click="addOrUpdateHandle()"
                 >新增</el-button>
                 <el-button
-                  v-if="isAuth('product:attrgroup:delete')"
+
                   type="danger"
                   @click="deleteHandle()"
                   :disabled="dataListSelections.length <= 0"
@@ -86,10 +85,10 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import Category from "../common/category";
-
+import AddOrUpdate from "./attrgroup-add-or-update";
 export default {
  //import引入的组件需要注入到对象中才能使用
-  components: { Category },
+  components: { Category,AddOrUpdate },
   props: {},
   data() {
     return {
@@ -135,6 +134,30 @@ export default {
         				  message: "查询失败",
         				  type: "error"
         				});
+      });
+    },
+
+    // 每页数
+    sizeChangeHandle(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    // 当前页
+    currentChangeHandle(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
+    // 多选
+    selectionChangeHandle(val) {
+      this.dataListSelections = val;
+    },
+
+     // 新增 / 修改
+    addOrUpdateHandle(id) {
+      this.addOrUpdateVisible = true;
+      this.$nextTick(() => {
+        this.$refs.addOrUpdate.init(id);
       });
     },
     //感知树节点被点击
