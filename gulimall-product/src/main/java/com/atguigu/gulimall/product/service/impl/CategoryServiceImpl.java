@@ -1,5 +1,7 @@
 package com.atguigu.gulimall.product.service.impl;
 
+import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +19,17 @@ import com.atguigu.common.utils.Query;
 import com.atguigu.gulimall.product.dao.CategoryDao;
 import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+//    @Autowired
+//    CategoryDao categoryDao;
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -41,7 +50,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         //2.1）、找到所有的一级分类
         List<CategoryEntity> level1Menus = entities.stream().filter(categoryEntity ->
-                categoryEntity.getParentCid() == 0
+             categoryEntity.getParentCid() == 0
         ).map((menu)->{
             menu.setChildren(getChildrens(menu,entities));
             return menu;
@@ -57,11 +66,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public void removeMenuByIds(List<Long> asList) {
+        //TODO  1、检查当前删除的菜单，是否被别的地方引用
+
+        //逻辑删除
         baseMapper.deleteBatchIds(asList);
     }
 
+    //[2,25,225]
     @Override
-    public Long[] findCatlogPath(Long catelogId) {
+    public Long[] findCatelogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
         List<Long> parentPath = findParentPath(catelogId, paths);
 
@@ -71,14 +84,29 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return parentPath.toArray(new Long[parentPath.size()]);
     }
 
-    public List<Long> findParentPath(Long catelogId, List<Long> paths){
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
+    }
+
+    //225,25,2
+    private List<Long> findParentPath(Long catelogId,List<Long> paths){
+        //1、收集当前节点id
         paths.add(catelogId);
         CategoryEntity byId = this.getById(catelogId);
         if(byId.getParentCid()!=0){
             findParentPath(byId.getParentCid(),paths);
         }
         return paths;
+
     }
+
 
     //递归查找所有菜单的子菜单
     private List<CategoryEntity> getChildrens(CategoryEntity root,List<CategoryEntity> all){
@@ -96,5 +124,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
         return children;
     }
+
+
 
 }

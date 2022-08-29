@@ -10,9 +10,9 @@ import java.util.Map;
 /**
  * 商品三级分类
  *
- * @author jacklam
- * @email jacklam200@gmail.com
- * @date 2022-02-05 16:15:37
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-01 21:08:48
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
@@ -22,12 +22,16 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     void removeMenuByIds(List<Long> asList);
 
+
     /**
-     * found out catelogid full path
+     * 找到catelogId的完整路径；
+     * [父/子/孙]
      * @param catelogId
      * @return
      */
+    Long[] findCatelogPath(Long catelogId);
 
-    Long[] findCatlogPath(Long catelogId);
+    void updateCascade(CategoryEntity category);
+
 }
 
